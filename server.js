@@ -23,7 +23,7 @@ app.use(express.static('public'));
 
 
 // Database configuration with mongoose
-mongoose.connect('mongodb://localhost/week18day3mongoose');
+mongoose.connect('mongodb://localhost/scrapeMongodb');
 var db = mongoose.connection;
 
 // show any mongoose errors
@@ -50,14 +50,14 @@ app.get('/', function(req, res) {
   res.send(index.html);
 });
 
-// A GET request to scrape the echojs website.
+// A GET request to scrape the reddit website.
 app.get('/scrape', function(req, res) {
 	// first, we grab the body of the html with request
   request('https://www.reddit.com/', function(error, response, html) {
   	// then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
     // now, we grab every h2 within an article tag, and do the following:
-    $('article h1').each(function(i, element) {
+    $('title').each(function(i, element) {
 
     		// save an empty result object
 				var result = {};
