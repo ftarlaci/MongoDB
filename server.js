@@ -23,7 +23,12 @@ app.use(express.static('public'));
 
 
 // Database configuration with mongoose
-mongoose.connect('mongodb://localhost/scrapeMongodb');
+var databaseUri = 'mongodb://localhost/scrapeMongodb';
+if (process.env.MONGODB_URI) {
+	mongoose.connect(process.env.MONGODB_URI);
+} else {
+	mongoose.connect(databaseUri);
+}
 var db = mongoose.connection;
 
 // show any mongoose errors
